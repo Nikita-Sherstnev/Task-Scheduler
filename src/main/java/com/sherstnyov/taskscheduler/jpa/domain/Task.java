@@ -1,4 +1,4 @@
-package com.sherstnyov.taskscheduler.models;
+package com.sherstnyov.taskscheduler.jpa.domain;
 
 import lombok.Data;
 import org.springframework.lang.Nullable;

@@ -1,6 +1,6 @@
-package com.sherstnyov.taskscheduler.repos;
+package com.sherstnyov.taskscheduler.jpa.repository;
 
-import com.sherstnyov.taskscheduler.models.User;
+import com.sherstnyov.taskscheduler.jpa.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

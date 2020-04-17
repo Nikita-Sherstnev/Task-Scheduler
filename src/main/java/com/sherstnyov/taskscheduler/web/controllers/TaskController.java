@@ -1,7 +1,10 @@
-package com.sherstnyov.taskscheduler.controllers;
+package com.sherstnyov.taskscheduler.web.controllers;
 
-import com.sherstnyov.taskscheduler.models.Task;
+import com.sherstnyov.taskscheduler.jpa.domain.Task;
 import com.sherstnyov.taskscheduler.services.TaskService;
+import com.sherstnyov.taskscheduler.web.dto.CreateTaskDto;
+import com.sherstnyov.taskscheduler.web.dto.TaskModel;
+import com.sherstnyov.taskscheduler.web.mapper.TaskMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +21,18 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    private final TaskMapper taskMapper;
+
     @GetMapping
     List<Task> getTasks() {
         return taskService.getAll();
     }
 
     @PostMapping
-    ResponseEntity<Task> createTask(@Valid @RequestBody Task task) throws URISyntaxException {
-        Task result = taskService.save(task);
-        return ResponseEntity.created(new URI("/tasks" + result.getId())).body(result);
+    ResponseEntity<TaskModel> createTask(@Valid @RequestBody CreateTaskDto taskDto) {
+        Task task = taskService.save(taskDto);
+        TaskModel taskModel = taskMapper.toModel(task);
+        return ResponseEntity.ok(taskModel);
     }
 
     @DeleteMapping("/{id}")
