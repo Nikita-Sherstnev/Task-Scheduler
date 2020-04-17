@@ -3,7 +3,6 @@ package com.sherstnyov.taskscheduler.controllers;
 import com.sherstnyov.taskscheduler.models.Task;
 import com.sherstnyov.taskscheduler.services.TaskService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
