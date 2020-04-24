@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -40,5 +38,4 @@ public class TaskController {
         taskService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }

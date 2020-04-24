@@ -1,6 +1,5 @@
 package com.sherstnyov.taskscheduler.web.dto;
 
-import com.sherstnyov.taskscheduler.jpa.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;

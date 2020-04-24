@@ -2,6 +2,7 @@ package com.sherstnyov.taskscheduler.services;
 
 import com.sherstnyov.taskscheduler.jpa.domain.User;
 import com.sherstnyov.taskscheduler.jpa.repository.UserRepository;
+import com.sherstnyov.taskscheduler.web.dto.CreateUserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,10 @@ public class UserService {
     }
 
     @Transactional
-    public User save(User user) {
+    public User save(CreateUserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
         return userRepository.save(user);
     }
 
