@@ -1,29 +1,27 @@
 package com.sherstnyov.taskscheduler.jpa.domain;
 
-import lombok.Data;
-import org.springframework.lang.Nullable;
-
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
+import lombok.Data;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Data
 @Table(name = "tasks")
 public class Task {
+  @Id
+  @Column(name = "id_task")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Id
-    @Column(name = "id_task")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @NotNull
+  private String description;
 
-    @NotNull
-    private String description;
+  @Nullable
+  private Instant deadline;
 
-    @Nullable
-    private Instant deadline;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "id_user", nullable = false)
+  private User user;
 }
