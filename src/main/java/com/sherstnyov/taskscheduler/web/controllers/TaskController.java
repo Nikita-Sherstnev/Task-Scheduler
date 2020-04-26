@@ -7,7 +7,6 @@ import com.sherstnyov.taskscheduler.web.dto.TaskModel;
 import com.sherstnyov.taskscheduler.web.mapper.TaskMapper;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +21,17 @@ public class TaskController {
   private final TaskMapper taskMapper;
 
   @GetMapping
-  public ResponseEntity<List<TaskModel>> getTasks() {
-    List<TaskModel> taskModelList = taskService.getAll().stream()
-    .map(task -> taskMapper.toModel(task))
-    .collect(Collectors.toList());
+  public ResponseEntity<List<TaskModel>> getAll() {
+    List<TaskModel> taskModelList = taskService
+      .getAll()
+      .stream()
+      .map(task -> taskMapper.toModel(task))
+      .collect(Collectors.toList());
     return ResponseEntity.ok(taskModelList);
   }
 
   @PostMapping
-  public ResponseEntity<TaskModel> createTask(
+  public ResponseEntity<TaskModel> create(
     @Valid @RequestBody CreateTaskDto taskDto
   ) {
     Task task = taskService.save(taskDto);
@@ -39,7 +40,7 @@ public class TaskController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+  public ResponseEntity<?> delete(@PathVariable Long id) {
     taskService.deleteById(id);
     return ResponseEntity.ok().build();
   }

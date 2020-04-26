@@ -3,7 +3,6 @@ package com.sherstnyov.taskscheduler.services;
 import com.sherstnyov.taskscheduler.jpa.domain.User;
 import com.sherstnyov.taskscheduler.jpa.repository.UserRepository;
 import com.sherstnyov.taskscheduler.web.dto.CreateUserDto;
-
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;

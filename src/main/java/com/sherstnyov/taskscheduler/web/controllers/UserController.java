@@ -5,10 +5,8 @@ import com.sherstnyov.taskscheduler.services.UserService;
 import com.sherstnyov.taskscheduler.web.dto.CreateUserDto;
 import com.sherstnyov.taskscheduler.web.dto.UserModel;
 import com.sherstnyov.taskscheduler.web.mapper.UserMapper;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +21,17 @@ public class UserController {
   private final UserMapper userMapper;
 
   @GetMapping
-  public ResponseEntity<List<UserModel>> getUsers() {
-    List<UserModel> userModelList = userService.getAll().stream()
-    .map(user -> userMapper.toModel(user))
-    .collect(Collectors.toList());
+  public ResponseEntity<List<UserModel>> getAll() {
+    List<UserModel> userModelList = userService
+      .getAll()
+      .stream()
+      .map(user -> userMapper.toModel(user))
+      .collect(Collectors.toList());
     return ResponseEntity.ok(userModelList);
   }
 
   @PostMapping
-  public ResponseEntity<UserModel> createTask(
+  public ResponseEntity<UserModel> create(
     @Valid @RequestBody CreateUserDto userDto
   ) {
     User user = userService.save(userDto);
@@ -40,7 +40,7 @@ public class UserController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+  public ResponseEntity<?> delete(@PathVariable Long id) {
     userService.deleteById(id);
     return ResponseEntity.ok().build();
   }
