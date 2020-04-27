@@ -7,6 +7,7 @@ import com.sherstnyov.taskscheduler.web.dto.TaskModel;
 import com.sherstnyov.taskscheduler.web.mapper.TaskMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,16 +23,18 @@ public class TaskController {
     private final TaskMapper taskMapper;
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<TaskModel>> getAll() {
         List<TaskModel> taskModelList = taskService
                 .getAll()
                 .stream()
-                .map(task -> taskMapper.toModel(task))
+                .map(taskMapper::toModel)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(taskModelList);
     }
 
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TaskModel> create(
             @Valid @RequestBody CreateTaskDto taskDto
     ) {
@@ -41,6 +44,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         taskService.deleteById(id);
         return ResponseEntity.ok().build();
