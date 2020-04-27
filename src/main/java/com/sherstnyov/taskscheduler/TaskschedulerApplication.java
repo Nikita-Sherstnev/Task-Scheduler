@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TaskschedulerApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(TaskschedulerApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(TaskschedulerApplication.class, args);
+    }
 }

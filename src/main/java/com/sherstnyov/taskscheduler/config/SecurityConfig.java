@@ -16,43 +16,43 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    // @formatter:off
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
-            .csrf()
+                .csrf()
                 .disable()
-            .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-        .and()
-            .authorizeRequests()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/").access("asRole('USER')")
                 .antMatchers("/**").permitAll()
-        .and()
-            .formLogin()
+                .and()
+                .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true");
-    // @formatter:on
-  }
+        // @formatter:on
+    }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth
-      .userDetailsService(userDetailsService)
-      .passwordEncoder(passwordEncoder());
-  }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/api");
-  }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/api");
+    }
 }
