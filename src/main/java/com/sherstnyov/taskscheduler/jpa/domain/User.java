@@ -52,4 +52,5 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Task> tasks = new ArrayList<>();
+
 }

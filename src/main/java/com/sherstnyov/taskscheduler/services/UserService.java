@@ -29,6 +29,7 @@ public class UserService {
     public User save(CreateUserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
         user.setEmail(userDto.getEmail());
         return userRepository.save(user);
     }

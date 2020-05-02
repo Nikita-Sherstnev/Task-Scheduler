@@ -12,7 +12,6 @@ import java.time.Instant;
 @Table(name = "tasks")
 public class Task {
     @Id
-    @Column(name = "id_task")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
