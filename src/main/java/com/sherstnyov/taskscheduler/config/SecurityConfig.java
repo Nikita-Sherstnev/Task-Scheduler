@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = false, securedEnabled = false, jsr250Enabled = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
@@ -27,23 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
         http
                 .csrf()
-                .disable()
+                    .disable()
                 .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .passwordParameter("password")
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .failureUrl("/login?error=true")
                 .and()
-                .authorizeRequests()
-                .antMatchers("/").access("asRole('USER')")
-                .antMatchers("/**").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error=true");
-        // @formatter:on
+                    .authorizeRequests()
+                    .antMatchers("/login").permitAll();
     }
 
     @Override

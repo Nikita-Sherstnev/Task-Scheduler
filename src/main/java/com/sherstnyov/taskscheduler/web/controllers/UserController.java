@@ -7,7 +7,6 @@ import com.sherstnyov.taskscheduler.web.dto.UserModel;
 import com.sherstnyov.taskscheduler.web.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,7 +22,6 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<UserModel>> getAll() {
         List<UserModel> userModelList = userService
                 .getAll()
@@ -34,7 +32,6 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UserModel> create(
             @Valid @RequestBody CreateUserDto userDto
     ) {
@@ -44,7 +41,6 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.ok().build();
