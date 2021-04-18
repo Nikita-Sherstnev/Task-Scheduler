@@ -1,12 +1,14 @@
 package com.sherstnyov.taskscheduler.services;
 
 import com.sherstnyov.taskscheduler.jpa.domain.Task;
+import com.sherstnyov.taskscheduler.jpa.domain.User;
 import com.sherstnyov.taskscheduler.jpa.repository.TaskRepository;
 import com.sherstnyov.taskscheduler.web.dto.CreateTaskDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -17,6 +19,12 @@ public class TaskService {
 
     public List<Task> getAll() {
         return taskRepository.findAll();
+    }
+
+    public Task getById(Long id) {
+        return taskRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found"));
     }
 
     @Transactional

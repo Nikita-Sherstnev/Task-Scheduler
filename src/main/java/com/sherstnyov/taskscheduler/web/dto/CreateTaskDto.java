@@ -1,5 +1,6 @@
 package com.sherstnyov.taskscheduler.web.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -10,6 +11,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class CreateTaskDto {
     @NotNull
     @Length(max = 4096)

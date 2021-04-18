@@ -31,6 +31,13 @@ public class TaskController {
         return ResponseEntity.ok(taskModelList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskModel> getById(@PathVariable Long id) {
+        Task task = taskService.getById(id);
+        TaskModel taskModel = taskMapper.toModel(task);
+        return ResponseEntity.ok(taskModel);
+    }
+
     @PostMapping
     public ResponseEntity<TaskModel> create(
             @Valid @RequestBody CreateTaskDto taskDto
